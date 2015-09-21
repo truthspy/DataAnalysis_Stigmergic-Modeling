@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CCM Display</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <link rel="stylesheet" href="stigmod.css">
+    <link rel="stylesheet" href="drawccm.css">
+  </head>
+  <body>
+
+<!--     <div class="ctrl-box" id="settings">
+        <div class="box-head">Display Settings</div>
+        <div class="box-body">
+            <hr>
+            <div class="box-item">
+                <input type="checkbox" id="show-name-edges" checked><label for="show-name-edges">show name on edges</label>
+            </div>
+            <div class="box-item">
+                <input type="checkbox" id="show-name-nodes" checked><label for="show-name-nodes">show name on nodes</label>
+            </div>
+            <div class="box-item">
+                <input type="checkbox" id="show-ref-nodes" checked><label for="show-ref-nodes">show reference number on nodes</label>
+            </div>
+            <hr>
+            <div class="box-tips">
+                <span>Tips: Use arrow keys to move around</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="ctrl-box" id="legend">
+        <div class="box-head">Legend</div>
+        <div class="box-body">
+            <hr>
+            <div class="box-legend">
+
+            </div>
+        </div>
+    </div> -->
+
+<span class="text-center stigmod-btn-left" id="stigmod-model-view">
+    <span class="stigmod-a-pseudo stigmod-a-nounderline">
+      <span class="fa fa-sitemap"></span>&nbsp;
+      Model View
+    </span>
+</span>
+
+
+<div class="modal fade" id="stigmod-modal-d3view" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+  <div class="modal-dialog stigmod-modal-d3">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="row search-row">
+          <div class="col-xs-4">
+          </div>
+          <div class="col-xs-4">
+            <div class="input-group">
+              <input type="text" id="searchText" class="form-control" placeholder="Node Name">
+              <span class="input-group-btn">
+                <button id="searchButton" class="btn btn-default" type="button">
+                  <span class="glyphicon glyphicon-search"></span>
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="col-xs-4">
+          </div>
+        </div>
+
+<!--         <div id="tooltip" class="hidden">
+          <div id = "classDetail">
+          </div>
+          <div id = "relationDetail">
+          </div>
+        </div> -->
+
+        <!--图例-->
+        <div id = "legend">
+          <div id = "Class">
+            <svg width = "130" height = "24">
+              <circle id = "classLegend" cursor="pointer" cx = "12" cy = "12" r="10" stroke="#46A39E" fill="#30B6AF"/>
+              <text x="35" y = "19">Class</text>
+            </svg>
+
+          </div>
+          <div id = "Value">
+            <svg width = "150" height = "24">
+              <circle id = "valueLegend" cursor="pointer" cx = "12" cy = "12" r="10" stroke="#EB5D6C" fill="#FF6C7C"/>
+              <text x="35" y = "19">Value</text>
+            </svg>
+          </div>
+
+          <div id = "Relation">
+            <svg width = "150" height = "24">
+              <circle id = "relationLegend" cursor="pointer" cx = "12" cy = "12" r="10" stroke="#F3BA25" fill="#FCC940"/>
+              <text x="35" y = "19">Relation</text>
+            </svg>
+          </div>
+
+          <div id = "builtInClass">
+            <svg width = "150" height = "24">
+              <circle id = "builtInLegend" cursor="pointer" cx = "12" cy = "12" r="10" stroke="#9453B1" fill="#AD62CE"/>
+              <text x="35" y = "19">builtInClass</text>
+            </svg>
+          </div>
+
+          <div>
+            <svg width = "150" height = "24">
+              <defs>
+                <marker id="edgeMarker" markerUnits="userSpaceOnUse" viewBox="0 -5 10 10" markerWidth="7" markerHeight="7" refX="10" refY="0" orient="auto">
+                  <path class = "edgeColortoChange" stroke-width="1.5" d="M0,-5L10,0L0,5" fill="none" stroke="#BABDBC"></path>
+                </marker>
+              </defs>
+              <line id = "edgeLegend" class = "edgeColortoChange" x1="2" y1="15" x2="22" y2="15" cursor="pointer" stroke="#BABDBC" stroke-width="1" marker-end="url(#edgeMarker)"/>
+              <text x="35" y = "19">Edge</text>
+            </svg>
+          </div>
+
+        </div>
+
+        <!--配置框for点-->
+        <div id = "classLegendOption" class = "hidden legendOption">
+          <svg width = "250" height = "35">
+            <circle id = "classCircle" cx = "17" cy = "21" r="5" stroke="#46A39E" fill="#30B6AF"/>
+            <text id="optionText" x="40" y = "26" fill="#DCDEE0">Class</text>
+          </svg>
+
+
+          <button type="button" class="close" style = "position:relative; top: -30px; right: 5px;color: white;">&times;</button>
+
+          <hr style="margin:0px;height:1px;border:none;border-top:1px solid #85888D;"/>
+
+          <div style = "font-size:15px; height:35px; vertical-align:middle; line-height:35px">
+            <span style="color: #DCDEE0; margin-left: 12px">Caption: </span>
+            <select id = "classCaptionSelect" style="margin-left:10px">
+              <option value="1">NodeName</option>
+              <option value="0">None</option>
+            </select>
+          </div>
+
+          <hr style="margin:0px;height:1px;border:none;border-top:1px solid #85888D;"/>
+
+          <div style = "font-size:15px; height:35px; vertical-align:middle; line-height:35px">
+            <span style="color: #DCDEE0; margin-left: 28px">Color: </span>
+            <select id = "classColorSelect" style="margin-left:10px">
+              <option value="green">Green</option>
+              <option value="blue">Blue</option>
+              <option value="yellow">Yellow</option>
+              <option value="grey">Grey</option>
+              <option value="orange">Orange</option>
+              <option value="purple">Purple</option>
+              <option value="red">Red</option>
+            </select>
+          </div>
+
+        </div>
+        <div id = "valueLegendOption" class = "hidden legendOption">
+          <svg width = "250" height = "35">
+              <circle id = "valueCircle" cx = "17" cy = "21" r="5" stroke="#EB5D6C" fill="#FF6C7C"/>
+              <text id="optionText" x="40" y = "26" fill="#DCDEE0">Value</text>
+          </svg>
+
+
+          <button type="button" class="close" style = "position:relative; top: -30px; right: 5px;color: white;">&times;</button>
+
+          <hr style="margin:0px;height:1px;border:none;border-top:1px solid #85888D;"/>
+
+          <div style = "font-size:15px; height:35px; vertical-align:middle; line-height:35px">
+              <span style="color: #DCDEE0; margin-left: 12px">Caption: </span>
+              <select id = "valueCaptionSelect" style="margin-left:10px">
+                  <option value="1">NodeName</option>
+                  <option value="0">None</option>
+              </select>
+          </div>
+
+          <hr style="margin:0px;height:1px;border:none;border-top:1px solid #85888D;"/>
+
+          <div style = "font-size:15px; height:35px; vertical-align:middle; line-height:35px">
+              <span style="color: #DCDEE0; margin-left: 28px">Color: </span>
+              <select id = "valueColorSelect" style="margin-left:10px">
+                  <option value="green">Green</option>
+                  <option value="blue">Blue</option>
+                  <option value="yellow">Yellow</option>
+                  <option value="grey">Grey</option>
+                  <option value="orange">Orange</option>
+                  <option value="purple">Purple</option>
+                  <option value="red">Red</option>
+              </select>
+          </div>
+
+        </div>
+        <div id = "relationLegendOption" class = "hidden legendOption">
+              <svg width = "250" height = "35">
+                  <circle id = "relationCircle" cx = "17" cy = "21" r="5" stroke="#F3BA25" fill="#FCC940"/>
+                  <text id="optionText" x="40" y = "26" fill="#DCDEE0">Relation</text>
+              </svg>
+
+
+              <button type="button" class="close" style = "position:relative; top: -30px; right: 5px;color: white;">&times;</button>
+
+              <hr style="margin:0px;height:1px;border:none;border-top:1px solid #85888D;"/>
+
+              <div style = "font-size:15px; height:35px; vertical-align:middle; line-height:35px">
+                  <span style="color: #DCDEE0; margin-left: 12px">Caption: </span>
+                  <select id = "relationCaptionSelect" style="margin-left:10px">
+                      <option value="1">NodeName</option>
+                      <option value="0">None</option>
+                  </select>
+              </div>
+
+              <hr style="margin:0px;height:1px;border:none;border-top:1px solid #85888D;"/>
+
+              <div style = "font-size:15px; height:35px; vertical-align:middle; line-height:35px">
+                  <span style="color: #DCDEE0; margin-left: 28px">Color: </span>
+                  <select id = "relationColorSelect" style="margin-left:10px">
+                      <option value="green">Green</option>
+                      <option value="blue">Blue</option>
+                      <option value="yellow">Yellow</option>
+                      <option value="grey">Grey</option>
+                      <option value="orange">Orange</option>
+                      <option value="purple">Purple</option>
+                      <option value="red">Red</option>
+                  </select>
+              </div>
+
+          </div>
+        <div id = "builtInLegendOption" class = "hidden legendOption">
+              <svg width = "250" height = "35">
+                  <circle id = "builtInCircle" cx = "17" cy = "21" r="5" stroke="#9453B1" fill="#AD62CE"/>
+                  <text id="optionText" x="40" y = "26" fill="#DCDEE0">builtInClass</text>
+              </svg>
+
+
+              <button type="button" class="close" style = "position:relative; top: -30px; right: 5px;color: white;">&times;</button>
+
+              <hr style="margin:0px;height:1px;border:none;border-top:1px solid #85888D;"/>
+
+              <div style = "font-size:15px; height:35px; vertical-align:middle; line-height:35px">
+                  <span style="color: #DCDEE0; margin-left: 12px">Caption: </span>
+                  <select id = "builtInCaptionSelect" style="margin-left:10px">
+                      <option value="1">NodeName</option>
+                      <option value="0">None</option>
+                  </select>
+              </div>
+
+              <hr style="margin:0px;height:1px;border:none;border-top:1px solid #85888D;"/>
+
+              <div style = "font-size:15px; height:35px; vertical-align:middle; line-height:35px">
+                  <span style="color: #DCDEE0; margin-left: 28px">Color: </span>
+                  <select id = "builtInColorSelect" style="margin-left:10px">
+                      <option value="green">Green</option>
+                      <option value="blue">Blue</option>
+                      <option value="yellow">Yellow</option>
+                      <option value="grey">Grey</option>
+                      <option value="orange">Orange</option>
+                      <option value="purple">Purple</option>
+                      <option value="red">Red</option>
+                  </select>
+              </div>
+
+          </div>
+
+        <div id = "edgeLegendOption" class = "hidden legendOption">
+          <svg width = "250" height = "35">
+              <line class = "edgeColortoChange" x1="10" y1="20" x2="30" y2="20" stroke="#BABDBC" stroke-width="1" marker-end="url(#edgeMarker)"/>
+              <text x="40" y = "26" fill="#DCDEE0">Edge</text>
+          </svg>
+
+          <button type="button" class="close" style = "position:relative; top: -30px; right: 5px;color: white;">&times;</button>
+
+          <hr style="margin:0px;height:1px;border:none;border-top:1px solid #85888D;"/>
+
+          <div style = "font-size:15px; height:35px; vertical-align:middle; line-height:35px">
+              <span style="color: #DCDEE0; margin-left: 28px">Color: </span>
+              <select id = "edgeColorSelect" style="margin-left:10px">
+                  <option value="grey">Grey</option>
+                  <option value="green">Green</option>
+                  <option value="blue">Blue</option>
+                  <option value="yellow">Yellow</option>
+                  <option value="orange">Orange</option>
+                  <option value="purple">Purple</option>
+                  <option value="red">Red</option>
+              </select>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-xs-12" id="view">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <script src="jquery.js"></script>
+    <script src="bootstrap.js"></script>
+    <script src="mousedrag.js"></script>
+    <script src="d3.v3.js"></script>
+
+    <script src="fulldataset.js"></script>
+    <script src="original_fe_data.js"></script>
+    <script src="drawccm.js"></script>
+
+    <script src="workspace.js"></script>
+  </body>
+</html>

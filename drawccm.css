@@ -1,0 +1,52 @@
+.ctrl-box {
+    position: fixed;
+    z-index: 4000;
+    top: 0;
+    right: 0;
+    border: solid #555 3px;
+    border-radius: 10px;
+    background: white;
+    margin: 10px;
+    font-family: 'Helvetica';
+    color: #444;
+    width: 230px;
+}
+#settings {
+    left: 0;
+}
+.box-head {
+    margin: 7px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.box-body {
+    display: none;
+    margin: 5px;
+    font-size: 12px;
+}
+.box-item {
+    margin: 5px;
+    font-size: 12px;
+}
+.box-tips {
+    margin: 5px;
+    font-size: 12px;
+}
+/*.btn {
+    border: solid #555 1px;
+    border-radius: 5px;
+    background: #fff;
+    width: 50px;
+    height: 30px;
+    cursor: pointer;
+}
+.btn:hover {
+    background: #aaa;
+    color: #fff;
+}*/
+label {
+    cursor: pointer;
+    margin-left: 3px;
+}
