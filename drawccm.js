@@ -568,8 +568,8 @@ function clickNode(node){
   tmpnode = node;
   tmpedge = null;
 
-  d3.select("#classDetail").remove();
-  d3.select("#relationDetail").remove();
+  d3.select("#nodeDetail").remove();
+  d3.select("#edgeDetail").remove();
 
   //更新类的名字
 
@@ -578,45 +578,52 @@ function clickNode(node){
   // d3.select("#tooltip")
   //   .style("left", mywidth - 350);
 
-  // d3.select("#tooltip")
-  //   .append("div")
-  //   .attr("id", "classDetail")
-  //   .attr("style", "border: 1px solid #999");
+  d3.select("#tooltip")
+    .append("div")
+    .attr("id", "nodeDetail")
+    .attr("style", "border: 1px solid #999; border-radius: 5px; padding:10px 0px;");
 
-  // d3.select("#classDetail")
-  //   .append("br");
 
-  // d3.select("#classDetail")
-  //   .append("p")
-  //   .attr("style", "text-align:center;font-weight:bold")
-  //   .text(nodeName);
+  d3.select("#nodeDetail")
+    .append("p")
+    .attr("style", "text-align:center;font-weight:bold")
+    .text(nodeName);
 
-  // d3.select("#classDetail")
-  //   .append("hr")
-  //   .attr("style", "border-top:1px solid #999");
+  d3.select("#nodeDetail")
+    .append("hr")
+    .attr("style", "border-top:1px solid #999; margin:10px 0px;");
 
-  // // 显示类的属性及相关信息
-  // d3.select("#classDetail")
-  //   .append("span")
-  //   .attr("id", "attributes");
+  // 显示类的属性及相关信息
+  d3.select("#nodeDetail")
+    .append("p")
+    .attr("style", "padding-left:5%")
+    .attr("id", "nodeType");
+  d3.select("#nodeType")
+    .append("span")
+    .attr("style", "font-weight:bold")
+    .text("Type:     ");
+  d3.select("#nodeType")
+    .append("span")
+    .text(node.type);
 
-  // var attribute = "";
-  // node.attribute.forEach(function(property) {
-  //   var propertyDetail = property.name;
-  //   if (property.type !== undefined)
-  //     propertyDetail = propertyDetail + " : " + property.type;
-  //   d3.select("#attributes")
-  //     .append("p")
-  //     .attr("style", "padding-left:5%")
-  //     .text(propertyDetail);
-  // });
+  d3.select("#nodeDetail")
+    .append("hr")
+    .attr("style", "border-top:1px solid #999; margin:10px 0px;");
 
-  // d3.select("#attributes")
-  //   .append("hr")
-  //   .attr("style", "border-top:1px solid #999");
+  d3.select("#nodeDetail")
+    .append("p")
+    .attr("style", "padding-left:5%; font-weight:bold")
+    .text("RefByUsers:     ");
+
+  d3.select("#nodeDetail")
+    .append("p")
+    .attr("style", "padding-left:5%")
+    .text(node.users);
+
+
 
   // //显示类的属性
-  // d3.select("#tooltip").classed("hidden", false);
+  d3.select("#tooltip").classed("hidden", false);
 
 
   //高亮该节点及文本
@@ -671,81 +678,72 @@ function clickEdge(edge){
   tmpedge = edge;
   tmpnode = null;
 
-  d3.select("#classDetail").remove();
-  d3.select("#relationDetail").remove();
-
-  var sourceName = edge.source.name;
-  var targetName = edge.target.name;
-  var type = edge.type;
-  var multi1 = edge.multiplicity[1];
-  var multi2 = edge.multiplicity[0];
-  var role1 = edge.role[1];
-  var role2 = edge.role[0];
-
-  // d3.select("#tooltip")
-  //   .style("left", mywidth - 350);
+  d3.select("#nodeDetail").remove();
+  d3.select("#edgeDetail").remove();
 
   d3.select("#tooltip")
     .append("div")
-    .attr("id", "relationDetail")
-    .attr("class", "row");
+    .attr("id", "edgeDetail")
+    .attr("style", "border: 1px solid #999; border-radius: 5px; padding:10px 0px;");
 
-  d3.select("#relationDetail")
-    .append("div")
-    .attr("id", "targetClass")
-    .attr("class","col-xs-12");
-
-
-  d3.select("#relationDetail")
-    .append("div")
-    .attr("id", "relation")
-    .attr("class","col-xs-6")
-    .attr("style", "text-align:right;padding: 0px");
-
-
-  d3.select("#relationDetail")
-    .append("div")
-    .attr("id", "multi")
-    .attr("class","col-xs-6")
-    .attr("style", "height: 180px;padding: 0px;");
-
-  d3.select("#relationDetail")
-    .append("div")
-    .attr("id", "sourceClass")
-    .attr("class","col-xs-12");
-
-  d3.select("#sourceClass")
+  //显示边的名字
+  d3.select("#edgeDetail")
     .append("p")
-    .attr("style", "text-align:center;border: 1px solid #999; padding: 10px; font-weight: bold")
-    .text(sourceName);
+    .attr("style", "text-align:center;font-weight:bold")
+    .text(edge.name);
 
-  d3.select("#relation")
-    .append("img")
-    .attr("src", "/src/img/" + type + ".png")
-    .attr("height", 180);
+  d3.select("#edgeDetail")
+    .append("hr")
+    .attr("style", "border-top:1px solid #999; margin:10px 0px;");
 
-  d3.select("#targetClass")
+  //显示边的source
+  d3.select("#edgeDetail")
     .append("p")
-    .attr("style", "text-align:center;border: 1px solid #999; padding: 10px; font-weight: bold")
-    .text(targetName);
+    .attr("style", "padding-left:5%")
+    .attr("id", "edgeSource");
 
+  d3.select("#edgeSource")
+    .append("span")
+    .attr("style", "font-weight:bold")
+    .text("Source:     ");
 
-  d3.select("#multi")
+  d3.select("#edgeSource")
+    .append("span")
+    .text(edge.source.name);
+
+  d3.select("#edgeDetail")
+    .append("hr")
+    .attr("style", "border-top:1px solid #999; margin:10px 0px;");
+
+  //显示边的target
+  d3.select("#edgeDetail")
     .append("p")
-    .text(multi1);
+    .attr("style", "padding-left:5%")
+    .attr("id", "edgeTarget");
 
-  d3.select("#multi")
-    .append("p")
-    .text(role1)
-    .attr("style", "padding-bottom: 100px");
+  d3.select("#edgeTarget")
+    .append("span")
+    .attr("style", "font-weight:bold")
+    .text("Target:     ");
 
-  d3.select("#multi")
-    .append("p")
-    .text(role2);
+  d3.select("#edgeTarget")
+    .append("span")
+    .text(edge.target.name);
 
-  d3.select("#multi")
+  d3.select("#edgeDetail")
+    .append("hr")
+    .attr("style", "border-top:1px solid #999; margin:10px 0px;");
+
+  //显示引用用户
+  d3.select("#edgeDetail")
     .append("p")
-    .text(multi2);
+    .attr("style", "padding-left:5%; font-weight:bold")
+    .text("RefByUsers:     ");
+
+  d3.select("#edgeDetail")
+    .append("p")
+    .attr("style", "padding-left:5%")
+    .text(edge.users);
 
 
   //显示类的属性
@@ -838,7 +836,7 @@ var myline = link.append("line")
 
 var path = link.append("path")
   .attr("stroke", "#fff")
-  .attr("stroke-width", 20)
+  .attr("stroke-width", 3)
   .attr("opacity", 0.0)
   .attr("cursor", "pointer");
 

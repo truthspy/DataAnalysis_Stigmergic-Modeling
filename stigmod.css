@@ -1299,9 +1299,9 @@ span.twitter-typeahead .tt-hint {
 
 #tooltip {
   position: absolute;
-  right: auto;
-  left: 20px;
-  top: 80px;
+  right: 30px;
+  left: auto;
+  top: 200px;
   width: 300px;
   height: auto;
   background-color: white;
