@@ -1314,7 +1314,7 @@ span.twitter-typeahead .tt-hint {
   position: absolute;
   right: auto;
   left: 15px;
-  top: 30px;
+  top: 70px;
   /*bottom: 30px;*/
   width: 200px;
   height: auto;
@@ -1322,6 +1322,19 @@ span.twitter-typeahead .tt-hint {
   border-radius: 5px;
   z-index:10001;
   padding: 8px;
+}
+#legendFold {
+  position: absolute;
+  left: 15px;
+  right: auto;
+  top: 30px;
+  width: 200px;
+  height: 40px;
+  border: 1px solid #999;
+  border-radius: 5px;
+  z-index:10001;
+  padding: 8px;
+  background-color: #999;
 }
 .legendOption {
   position: absolute;

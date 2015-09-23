@@ -920,6 +920,24 @@ path.on("click", function(d) {
         d3.selectAll(".legendOption").classed("hidden", true);
       });
 
+  d3.select("#showLegend")
+        .on("click", function(){
+          d3.select("#legendFold").style("background-color", "white");
+          d3.select("#legendText").attr("fill", "#999");
+          d3.select("#legend").classed("hidden", false);
+          d3.select("#showLegend").classed("hidden", true);
+          d3.select("#hiddenLegend").classed("hidden", false);
+        });
+
+    d3.select("#hiddenLegend")
+        .on("click", function(){
+          d3.select("#legendFold").style("background-color", "#999");
+          d3.select("#legendText").attr("fill", "white");
+          d3.select("#legend").classed("hidden", true);
+          d3.select("#hiddenLegend").classed("hidden", true);
+          d3.select("#showLegend").classed("hidden", false);
+        });
+
   d3.select("#classColorSelect")
       .on("change", function(){
         var colorValue = document.getElementById("classColorSelect").value;
