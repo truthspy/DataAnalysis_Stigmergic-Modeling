@@ -1322,6 +1322,7 @@ span.twitter-typeahead .tt-hint {
   border-radius: 5px;
   z-index:10001;
   padding: 8px;
+  background-color: white; 
 }
 #legendFold {
   position: absolute;

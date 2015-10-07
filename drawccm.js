@@ -610,10 +610,18 @@ function clickNode(node){
     .append("hr")
     .attr("style", "border-top:1px solid #999; margin:10px 0px;");
 
+  var users = node.users.split(" ");
+  var refString = "Referenced By " + users.length;
+  if(users.length === 0 || users.length === 1)
+    refString += " User";
+  else
+    refString += " Users";
+
   d3.select("#nodeDetail")
     .append("p")
     .attr("style", "padding-left:5%; font-weight:bold")
-    .text("RefByUsers:     ");
+    // .text("RefByUsers:     ");
+    .text(refString);
 
   d3.select("#nodeDetail")
     .append("p")
@@ -735,10 +743,18 @@ function clickEdge(edge){
     .attr("style", "border-top:1px solid #999; margin:10px 0px;");
 
   //显示引用用户
+
+  var users = edge.users.split(" ");
+  var refString = "Referenced By " + users.length;
+  if(users.length === 0 || users.length === 1)
+    refString += " User";
+  else
+    refString += " Users";
+
   d3.select("#edgeDetail")
     .append("p")
     .attr("style", "padding-left:5%; font-weight:bold")
-    .text("RefByUsers:     ");
+    .text(refString);
 
   d3.select("#edgeDetail")
     .append("p")
